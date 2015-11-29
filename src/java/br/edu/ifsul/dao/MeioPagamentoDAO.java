@@ -5,7 +5,7 @@
  */
 package br.edu.ifsul.dao;
 
-import br.edu.ifsul.modelo.Montadora;
+import br.edu.ifsul.modelo.MeioPagamento;
 import java.io.Serializable;
 import javax.ejb.Stateful;
 
@@ -14,15 +14,15 @@ import javax.ejb.Stateful;
  * @author Devel
  */
 @Stateful
-public class MontadoraDAO<T> extends GenericDAO<Montadora> implements Serializable {
+public class MeioPagamentoDAO<T> extends GenericDAO<MeioPagamento> implements Serializable {
     
-    public MontadoraDAO(){
+    public MeioPagamentoDAO(){
         super();
         //definir a classe persistente
-        super.setPersistentClass(Montadora.class);
+        super.setPersistentClass(MeioPagamento.class);
         //definir a lista de ordenações
         super.getListOrder().add(new Order("id", "ID", "="));
-        super.getListOrder().add(new Order("nome", "Nome", "like"));
+        super.getListOrder().add(new Order("descricao", "Descrição", "like"));
         //definir a ordem atual
         super.setCurrentOrder(super.getListOrder().get(1));
         //inicializar o filtro

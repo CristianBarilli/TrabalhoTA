@@ -17,7 +17,14 @@
                 <h:form id="formMenu" prependId="false">
                     <p:menu>
                         <p:submenu label="Cadastros">
-                            <p:menuitem action="#{controleMontadora.listar()}" value="Manutenção de Montadoras" ajax="false"/>
+                            <p:menuitem action="#{controlePessoaFisica.listar()}" value="Pessoa Física" ajax="false"/>
+                            <p:menuitem action="#{controlePessoaJuridica.listar()}" value="Pessoa Jurídica" ajax="false"/>
+                            <p:menuitem action="#{controleMontadora.listar()}" value="Montadoras" ajax="false"/>
+                            <p:menuitem action="#{controleTipo.listar()}" value="Tipos" ajax="false"/>
+                            <p:menuitem action="#{controleOpcional.listar()}" value="Opcionais" ajax="false"/>
+                            <p:menuitem action="#{controleVeiculo.listar()}" value="Veículos" ajax="false"/>
+                            <p:menuitem action="#{controleMeioPagamento.listar()}" value="Meios de Pagamento" ajax="false"/>
+                            <p:menuitem action="#{controleVenda.listar()}" value="Vendas" ajax="false"/>
                         </p:submenu>
                     </p:menu>
                 </h:form>

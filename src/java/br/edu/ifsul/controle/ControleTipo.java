@@ -5,8 +5,8 @@
  */
 package br.edu.ifsul.controle;
 
-import br.edu.ifsul.dao.MontadoraDAO;
-import br.edu.ifsul.modelo.Montadora;
+import br.edu.ifsul.dao.TipoDAO;
+import br.edu.ifsul.modelo.Tipo;
 import br.edu.ifsul.util.Util;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -17,23 +17,23 @@ import javax.faces.bean.SessionScoped;
  *
  * @author Devel
  */
-@ManagedBean(name = "controleMontadora")
+@ManagedBean(name = "controleTipo")
 @SessionScoped
-public class ControleMontadora implements Serializable{
+public class ControleTipo implements Serializable{
     
     @EJB
-    private MontadoraDAO<Montadora> dao;
-    private Montadora objeto;
+    private TipoDAO<Tipo> dao;
+    private Tipo objeto;
 
-    public ControleMontadora() {
+    public ControleTipo() {
     }
 
     public String listar(){
-        return "/privado/montadora/listar?faces-redirect=true";
+        return "/privado/tipo/listar?faces-redirect=true";
     }
     
     public String novo(){
-        objeto = new Montadora();
+        objeto = new Tipo();
         return "formulario";
     }
     
@@ -77,19 +77,19 @@ public class ControleMontadora implements Serializable{
         }
     }
     
-    public MontadoraDAO getDao() {
+    public TipoDAO getDao() {
         return dao;
     }
 
-    public void setDao(MontadoraDAO dao) {
+    public void setDao(TipoDAO dao) {
         this.dao = dao;
     }
 
-    public Montadora getObjeto() {
+    public Tipo getObjeto() {
         return objeto;
     }
 
-    public void setObjeto(Montadora objeto) {
+    public void setObjeto(Tipo objeto) {
         this.objeto = objeto;
     }
     

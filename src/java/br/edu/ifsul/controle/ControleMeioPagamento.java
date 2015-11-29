@@ -5,8 +5,8 @@
  */
 package br.edu.ifsul.controle;
 
-import br.edu.ifsul.dao.MontadoraDAO;
-import br.edu.ifsul.modelo.Montadora;
+import br.edu.ifsul.dao.MeioPagamentoDAO;
+import br.edu.ifsul.modelo.MeioPagamento;
 import br.edu.ifsul.util.Util;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -17,23 +17,23 @@ import javax.faces.bean.SessionScoped;
  *
  * @author Devel
  */
-@ManagedBean(name = "controleMontadora")
+@ManagedBean(name = "controleMeioPagamento")
 @SessionScoped
-public class ControleMontadora implements Serializable{
+public class ControleMeioPagamento implements Serializable{
     
     @EJB
-    private MontadoraDAO<Montadora> dao;
-    private Montadora objeto;
+    private MeioPagamentoDAO<MeioPagamento> dao;
+    private MeioPagamento objeto;
 
-    public ControleMontadora() {
+    public ControleMeioPagamento() {
     }
 
     public String listar(){
-        return "/privado/montadora/listar?faces-redirect=true";
+        return "/privado/meiopagamento/listar?faces-redirect=true";
     }
     
     public String novo(){
-        objeto = new Montadora();
+        objeto = new MeioPagamento();
         return "formulario";
     }
     
@@ -77,19 +77,19 @@ public class ControleMontadora implements Serializable{
         }
     }
     
-    public MontadoraDAO getDao() {
+    public MeioPagamentoDAO getDao() {
         return dao;
     }
 
-    public void setDao(MontadoraDAO dao) {
+    public void setDao(MeioPagamentoDAO dao) {
         this.dao = dao;
     }
 
-    public Montadora getObjeto() {
+    public MeioPagamento getObjeto() {
         return objeto;
     }
 
-    public void setObjeto(Montadora objeto) {
+    public void setObjeto(MeioPagamento objeto) {
         this.objeto = objeto;
     }
     

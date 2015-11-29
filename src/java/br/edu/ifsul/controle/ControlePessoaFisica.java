@@ -5,8 +5,8 @@
  */
 package br.edu.ifsul.controle;
 
-import br.edu.ifsul.dao.MontadoraDAO;
-import br.edu.ifsul.modelo.Montadora;
+import br.edu.ifsul.dao.PessoaFisicaDAO;
+import br.edu.ifsul.modelo.PessoaFisica;
 import br.edu.ifsul.util.Util;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -17,23 +17,23 @@ import javax.faces.bean.SessionScoped;
  *
  * @author Devel
  */
-@ManagedBean(name = "controleMontadora")
+@ManagedBean(name = "controlePessoaFisica")
 @SessionScoped
-public class ControleMontadora implements Serializable{
+public class ControlePessoaFisica implements Serializable{
     
     @EJB
-    private MontadoraDAO<Montadora> dao;
-    private Montadora objeto;
+    private PessoaFisicaDAO dao;
+    private PessoaFisica objeto;
 
-    public ControleMontadora() {
+    public ControlePessoaFisica() {
     }
 
     public String listar(){
-        return "/privado/montadora/listar?faces-redirect=true";
+        return "/privado/pessoafisica/listar?faces-redirect=true";
     }
     
     public String novo(){
-        objeto = new Montadora();
+        objeto = new PessoaFisica();
         return "formulario";
     }
     
@@ -77,19 +77,19 @@ public class ControleMontadora implements Serializable{
         }
     }
     
-    public MontadoraDAO getDao() {
+    public PessoaFisicaDAO getDao() {
         return dao;
     }
 
-    public void setDao(MontadoraDAO dao) {
+    public void setDao(PessoaFisicaDAO dao) {
         this.dao = dao;
     }
 
-    public Montadora getObjeto() {
+    public PessoaFisica getObjeto() {
         return objeto;
     }
 
-    public void setObjeto(Montadora objeto) {
+    public void setObjeto(PessoaFisica objeto) {
         this.objeto = objeto;
     }
     

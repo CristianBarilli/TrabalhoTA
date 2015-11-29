@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">
+            Seja Bem-Vindo ao Sistema
+        </ui:define>
+        <ui:define name="conteudo">
+            <h:form>
+            <p:growl/>
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:outputLabel value="Edição de Pessoas Juridicas"/>
+                    </f:facet>
+                    <f:facet name="footer">
+                        <div align="center">
+                            <p:commandButton value="Cancelar" action="#{controlePessoaJuridica.cancelar()}" ajax="false" immediate="true"/>
+                            <p:commandButton value="Salvar" action="#{controlePessoaJuridica.salvar()}" ajax="false"/>
+                        </div>    
+                    </f:facet>
+                    <p:outputLabel value="ID"/>
+                    <p:inputText value="#{controlePessoaJuridica.objeto.id}" readonly="true" size="5"/>
+                    
+                    <p:outputLabel value="Razão Social" for="txtRazaoSocial"/>
+                    <p:inputText id="txtRazaoSocial" value="#{controlePessoaJuridica.objeto.razaoSocial}"
+                                 size="50"
+                                 maxlength="50"
+                                 placeholder="Obrigatório"/>
+                    
+                    <p:outputLabel value="Nome Fantasia" for="txtNomeFantasia"/>
+                    <p:inputText id="txtNomeFantasia" value="#{controlePessoaJuridica.objeto.nomeFantasia}"
+                                 size="50"
+                                 maxlength="50"
+                                 placeholder="Obrigatório"/>
+
+                    <p:outputLabel value="CNPJ" for="txtCNPJ"/>
+                    <p:inputMask value="#{controlePessoaJuridica.objeto.cnpj}"
+                                 size="18"
+                                 id="txtCNPJ"
+                                 mask="99.999.999/9999-99"
+                                 placeholder="Obrigatório"/>
+
+                    <p:outputLabel value="IE" for="txtIE"/>
+                    <p:inputText id="txtIE" size="12"
+                                 maxlength="12"
+                                 value="#{controlePessoaJuridica.objeto.ie}"
+                                 placeholder="Obrigatório"/>
+                    
+                    <p:outputLabel value="Responsável" for="txtResponsavel"/>
+                    <p:inputText value="#{controlePessoaJuridica.objeto.responsavel}" size="50" 
+                                 maxlength="50" id="txtResponsavel"
+                                 placeholder="Obrigatório"/>
+                    
+                    <p:outputLabel value="Telefone" for="txtTelefone"/>
+                    <p:inputMask id="txtTelefone" value="#{controlePessoaJuridica.objeto.telefone}"
+                                 mask="(99)9999-9999"/>
+                    
+                    <p:outputLabel value="Email" for="txtEmail"/>
+                    <p:inputText value="#{controlePessoaJuridica.objeto.email}" id="txtEmail" size="30" maxlength="30" placeholder="Obrigatório"/>
+                    
+                    <p:outputLabel value="Endereço" for="txtEndereco"/>
+                    <p:inputText value="#{controlePessoaJuridica.objeto.endereco}" id="txtEndereco" size="50" maxlength="100" placeholder="Obrigatório"/>
+
+                    <p:outputLabel value="Bairro" for="txtBairro"/>
+                    <p:inputText value="#{controlePessoaJuridica.objeto.bairro}" id="txtBairro" size="50" maxlength="50" placeholder="Obrigatório"/>
+
+                    <p:outputLabel value="CEP" for="txtCEP"/>
+                    <p:inputText value="#{controlePessoaJuridica.objeto.cep}" id="txtCEP" size="50" maxlength="50" placeholder="Obrigatório"/>
+
+                </p:panelGrid>
+            </h:form>
+        </ui:define>    
+    </ui:composition>
+       
+</html>
+

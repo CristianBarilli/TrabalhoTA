@@ -6,19 +6,25 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -63,8 +69,8 @@ public class Veiculo implements Serializable{
     private String cor;
     
     @NotEmpty(message = "A placa deve ser informada")
-    @Length(max = 7, min = 7, message = "A placa deve ter {max} caracteres")
-    @Column(name = "placa", length = 7, nullable = false)
+    @Length(max = 8, min = 8, message = "A placa deve ter {max} caracteres")
+    @Column(name = "placa", length = 8, nullable = false)
     private String placa;
     
     @NotEmpty(message = "O combustivel deve ser informado")
@@ -78,7 +84,27 @@ public class Veiculo implements Serializable{
     private Double preco;
     
     private Boolean unico_dono;
-
+    
+    private Boolean vendido;
+    
+    @NotNull(message = "A montadora deve ser informada")
+    @ManyToOne
+    @JoinColumn(name = "montadora", referencedColumnName = "id")
+    private Montadora montadora;
+    
+    @NotNull(message = "O Tipo deve ser informado")
+    @ManyToOne
+    @JoinColumn(name = "tipo", referencedColumnName = "id")
+    private Tipo tipo;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "veiculos_opcionais",
+            joinColumns = 
+            @JoinColumn(name = "veiculo", referencedColumnName = "id"), 
+            inverseJoinColumns = 
+            @JoinColumn(name = "opcional", referencedColumnName = "id"))
+    private List<Opcional> opcionais = new ArrayList<>();
+    
     public Veiculo() {
     }
 
@@ -135,7 +161,7 @@ public class Veiculo implements Serializable{
     }
 
     public void setPlaca(String placa) {
-        this.placa = placa;
+        this.placa = placa.toUpperCase();
     }
 
     public String getCombustivel() {
@@ -153,6 +179,22 @@ public class Veiculo implements Serializable{
     public void setPreco(Double preco) {
         this.preco = preco;
     }
+    
+    public Montadora getMontadora() {
+        return montadora;
+    }
+
+    public void setMontadora(Montadora montadora) {
+        this.montadora = montadora;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }    
 
     public Boolean getUnico_dono() {
         return unico_dono;
@@ -160,6 +202,14 @@ public class Veiculo implements Serializable{
 
     public void setUnico_dono(Boolean unico_dono) {
         this.unico_dono = unico_dono;
+    }
+
+    public List<Opcional> getOpcionais() {
+        return opcionais;
+    }
+
+    public void setOpcionais(List<Opcional> opcionais) {
+        this.opcionais = opcionais;
     }
 
     @Override
@@ -182,7 +232,19 @@ public class Veiculo implements Serializable{
             return false;
         }
         return true;
+    }    
+
+    @Override
+    public String toString() {
+        return nome;
     }
-    
+
+    public Boolean getVendido() {
+        return vendido;
+    }
+
+    public void setVendido(Boolean vendido) {
+        this.vendido = vendido;
+    }
     
 }

@@ -5,8 +5,9 @@
  */
 package br.edu.ifsul.controle;
 
-import br.edu.ifsul.dao.MontadoraDAO;
-import br.edu.ifsul.modelo.Montadora;
+import br.edu.ifsul.dao.OpcionalDAO;
+import br.edu.ifsul.dao.VeiculoDAO;
+import br.edu.ifsul.modelo.Opcional;
 import br.edu.ifsul.util.Util;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -17,23 +18,24 @@ import javax.faces.bean.SessionScoped;
  *
  * @author Devel
  */
-@ManagedBean(name = "controleMontadora")
+@ManagedBean(name = "controleOpcional")
 @SessionScoped
-public class ControleMontadora implements Serializable{
+public class ControleOpcional implements Serializable{
     
     @EJB
-    private MontadoraDAO<Montadora> dao;
-    private Montadora objeto;
-
-    public ControleMontadora() {
+    private OpcionalDAO<Opcional> dao;
+    private Opcional objeto;
+    @EJB
+    private VeiculoDAO daoVeiculo;
+    public ControleOpcional() {
     }
 
     public String listar(){
-        return "/privado/montadora/listar?faces-redirect=true";
+        return "/privado/opcional/listar?faces-redirect=true";
     }
     
     public String novo(){
-        objeto = new Montadora();
+        objeto = new Opcional();
         return "formulario";
     }
     
@@ -77,20 +79,28 @@ public class ControleMontadora implements Serializable{
         }
     }
     
-    public MontadoraDAO getDao() {
+    public OpcionalDAO getDao() {
         return dao;
     }
 
-    public void setDao(MontadoraDAO dao) {
+    public void setDao(OpcionalDAO dao) {
         this.dao = dao;
     }
 
-    public Montadora getObjeto() {
+    public Opcional getObjeto() {
         return objeto;
     }
 
-    public void setObjeto(Montadora objeto) {
+    public void setObjeto(Opcional objeto) {
         this.objeto = objeto;
+    }
+
+    public VeiculoDAO getDaoVeiculo() {
+        return daoVeiculo;
+    }
+
+    public void setDaoVeiculo(VeiculoDAO daoVeiculo) {
+        this.daoVeiculo = daoVeiculo;
     }
     
 }
