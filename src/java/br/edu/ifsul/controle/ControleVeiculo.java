@@ -9,10 +9,11 @@ import br.edu.ifsul.dao.MontadoraDAO;
 import br.edu.ifsul.dao.OpcionalDAO;
 import br.edu.ifsul.dao.TipoDAO;
 import br.edu.ifsul.dao.VeiculoDAO;
+import br.edu.ifsul.modelo.Montadora;
 import br.edu.ifsul.modelo.Opcional;
+import br.edu.ifsul.modelo.Tipo;
 import br.edu.ifsul.modelo.Veiculo;
 import br.edu.ifsul.util.Util;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -27,15 +28,15 @@ import javax.faces.bean.SessionScoped;
 public class ControleVeiculo implements Serializable{
     
     @EJB
-    private VeiculoDAO dao;
+    private VeiculoDAO<Veiculo> dao;
     private Veiculo objeto;
     private Opcional opcional;
     @EJB
-    private MontadoraDAO daoMontadora;
+    private MontadoraDAO<Montadora> daoMontadora;
     @EJB
-    private TipoDAO daoTipo;
+    private TipoDAO<Tipo> daoTipo;
     @EJB
-    private OpcionalDAO daoOpcional;
+    private OpcionalDAO<Opcional> daoOpcional;
 
     public ControleVeiculo() {
     }

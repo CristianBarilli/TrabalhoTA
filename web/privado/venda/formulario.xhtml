@@ -48,10 +48,10 @@
                                      readonly="true" id="campoComprador"/>
 
                         <p:commandButton value="Físico"
-                                         actionListener="#{controleVenda.daoPessoaFisica.listarTodos}"
+                                         actionListener="#{controleVenda.daoPessoaFisica.listObjects()}"
                                          oncomplete="PF('dlgSelecionarPessoaFisica').show();"/>
                         <p:commandButton value="Jurídico"
-                                         actionListener="#{controleVenda.daoPessoaJuridica.listarTodos}"
+                                         actionListener="#{controleVenda.daoPessoaJuridica.listObjects()}"
                                          oncomplete="PF('dlgSelecionarPessoaJuridica').show();"/>
                     </h:panelGroup>
                     
@@ -67,7 +67,7 @@
                                                  style="vertical-align: middle;margin-top: 6px;"
                                                  id="selectVeiculo">
                                     <f:converter converterId="converterVeiculo"/>
-                                    <f:selectItems value="#{controleVenda.daoVeiculo.listarTodos}"
+                                    <f:selectItems value="#{controleVenda.daoVeiculo.listObjects}"
                                                    var="v"
                                                    itemLabel="#{v.nome} - #{v.placa}"/>
                                 </p:selectOneMenu>  
@@ -121,7 +121,7 @@
             <p:dialog header="Escolha Pessoa Fisica" widgetVar="dlgSelecionarPessoaFisica"
                       resizable="false" modal="true" width="300">
                 <h:form id="formFisico" prependId="false">
-                    <p:dataTable value="#{controleVenda.daoPessoaFisica.listarTodos}" var="pf">
+                    <p:dataTable value="#{controleVenda.daoPessoaFisica.listObjects}" var="pf">
                         <p:column headerText="Nome">
                             <p:outputLabel value="#{pf.nome}"/>
                         </p:column>
@@ -136,7 +136,7 @@
             <p:dialog header="Escolha Pessoa Jurídica" widgetVar="dlgSelecionarPessoaJuridica"
                       resizable="false" modal="true" width="300">
                 <h:form id="formJuridico" prependId="false">
-                    <p:dataTable value="#{controleVenda.daoPessoaJuridica.listarTodos}" var="pj">
+                    <p:dataTable value="#{controleVenda.daoPessoaJuridica.listObjects}" var="pj">
                         <p:column headerText="Nome">
                             <p:outputLabel value="#{pj.razaoSocial}"/>
                         </p:column>

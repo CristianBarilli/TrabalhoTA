@@ -5,7 +5,6 @@
  */
 package br.edu.ifsul.dao;
 
-import br.edu.ifsul.modelo.Opcional;
 import br.edu.ifsul.modelo.Tipo;
 import java.io.Serializable;
 import javax.ejb.Stateful;
@@ -31,8 +30,5 @@ public class TipoDAO<T> extends GenericDAO<Tipo> implements Serializable {
         //inicializar o conversor
         super.setConverterOrder(new ConverterOrder(super.getListOrder()));
         
-    }
-    public T getObjectById(Integer id) throws Exception{
-        return (T) em.find(persistentClass, id);
     }
 }

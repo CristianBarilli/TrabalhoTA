@@ -7,59 +7,28 @@ package br.edu.ifsul.dao;
 
 import br.edu.ifsul.modelo.PessoaJuridica;
 import java.io.Serializable;
-import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.ejb.Stateful;
 
 /**
  *
  * @author Devel
  */
-@Stateless
-public class PessoaJuridicaDAO implements Serializable{
+@Stateful
+public class PessoaJuridicaDAO<T> extends GenericDAO<PessoaJuridica> implements Serializable {
     
-    @PersistenceContext(unitName = "TA-2015-Trabalho-E2PU")
-    private EntityManager em;
-    private List<PessoaJuridica> listarTodos;
-
-    public PessoaJuridicaDAO() {
+    public PessoaJuridicaDAO(){
+        super();
+        //definir a classe persistente
+        super.setPersistentClass(PessoaJuridica.class);
+        //definir a lista de ordenações
+        super.getListOrder().add(new Order("id", "ID", "="));
+        super.getListOrder().add(new Order("razao_social", "Razão Social", "like"));
+        //definir a ordem atual
+        super.setCurrentOrder(super.getListOrder().get(1));
+        //inicializar o filtro
+        super.setFilter("");
+        //inicializar o conversor
+        super.setConverterOrder(new ConverterOrder(super.getListOrder()));
+        
     }
-    
-    public void persist(PessoaJuridica objeto) throws Exception{
-        em.persist(objeto);
-    }
-    
-    public void merge(PessoaJuridica objeto) throws Exception{
-        em.merge(objeto);
-    }
-    
-    public void remove(PessoaJuridica objeto) throws Exception{
-        objeto = em.merge(objeto);
-        em.remove(objeto);
-    }
-    
-    public PessoaJuridica getObjectById(Integer id) throws Exception{
-        return em.find(PessoaJuridica.class, id);
-    }
-    
-    public EntityManager getEm() {
-        return em;
-    }
-
-    public void setEm(EntityManager em) {
-        this.em = em;
-    }
-
-    public List<PessoaJuridica> getListarTodos() {
-        return em.createQuery("from PessoaJuridica order by razao_social").getResultList();
-    }
-
-    public void setListarTodos(List<PessoaJuridica> listarTodos) {
-        this.listarTodos = listarTodos;
-    }
-    
-    
-    
-    
 }

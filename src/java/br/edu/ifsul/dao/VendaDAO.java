@@ -7,62 +7,35 @@ package br.edu.ifsul.dao;
 
 import br.edu.ifsul.modelo.Venda;
 import java.io.Serializable;
-import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.ejb.Stateful;
 
 /**
  *
  * @author Devel
  */
-@Stateless
-public class VendaDAO implements Serializable{
+@Stateful
+public class VendaDAO<T> extends GenericDAO<Venda> implements Serializable {
     
-    @PersistenceContext(unitName = "TA-2015-Trabalho-E2PU")
-    private EntityManager em;
-    private List<Venda> listarTodos;
+    public VendaDAO(){
+        super();
+        //definir a classe persistente
+        super.setPersistentClass(Venda.class);
+        //definir a lista de ordenações
+        super.getListOrder().add(new Order("id", "ID", "="));
+        super.getListOrder().add(new Order("valor", "Valor", "="));
+        //definir a ordem atual
+        super.setCurrentOrder(super.getListOrder().get(1));
+        //inicializar o filtro
+        super.setFilter("");
+        //inicializar o conversor
+        super.setConverterOrder(new ConverterOrder(super.getListOrder()));
 
-    public VendaDAO() {
     }
     
-    public void persist(Venda objeto) throws Exception{
-        em.persist(objeto);
-    }
-    
-    public void merge(Venda objeto) throws Exception{
-        em.merge(objeto);
-    }
-    
-    public void remove(Venda objeto) throws Exception{
-        objeto = em.merge(objeto);
-        em.remove(objeto);
-    }
-    
+    @Override
     public Venda getObjectById(Integer id) throws Exception{
-        Venda obj = em.find(Venda.class, id);
+        Venda obj =  super.getEm().find(Venda.class, id);
         obj.getVeiculos().size();
         return obj;
-        
     }
-    
-    public EntityManager getEm() {
-        return em;
-    }
-
-    public void setEm(EntityManager em) {
-        this.em = em;
-    }
-
-    public List<Venda> getListarTodos() {
-        return em.createQuery("from Venda order by id").getResultList();
-    }
-
-    public void setListarTodos(List<Venda> listarTodos) {
-        this.listarTodos = listarTodos;
-    }
-    
-    
-    
-    
 }

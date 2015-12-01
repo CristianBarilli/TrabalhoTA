@@ -7,59 +7,28 @@ package br.edu.ifsul.dao;
 
 import br.edu.ifsul.modelo.PessoaFisica;
 import java.io.Serializable;
-import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.ejb.Stateful;
 
 /**
  *
  * @author Devel
  */
-@Stateless
-public class PessoaFisicaDAO implements Serializable{
+@Stateful
+public class PessoaFisicaDAO<T> extends GenericDAO<PessoaFisica> implements Serializable {
     
-    @PersistenceContext(unitName = "TA-2015-Trabalho-E2PU")
-    private EntityManager em;
-    private List<PessoaFisica> listarTodos;
-
-    public PessoaFisicaDAO() {
+    public PessoaFisicaDAO(){
+        super();
+        //definir a classe persistente
+        super.setPersistentClass(PessoaFisica.class);
+        //definir a lista de ordenações
+        super.getListOrder().add(new Order("id", "ID", "="));
+        super.getListOrder().add(new Order("nome", "Nome", "like"));
+        //definir a ordem atual
+        super.setCurrentOrder(super.getListOrder().get(1));
+        //inicializar o filtro
+        super.setFilter("");
+        //inicializar o conversor
+        super.setConverterOrder(new ConverterOrder(super.getListOrder()));
+        
     }
-    
-    public void persist(PessoaFisica objeto) throws Exception{
-        em.persist(objeto);
-    }
-    
-    public void merge(PessoaFisica objeto) throws Exception{
-        em.merge(objeto);
-    }
-    
-    public void remove(PessoaFisica objeto) throws Exception{
-        objeto = em.merge(objeto);
-        em.remove(objeto);
-    }
-    
-    public PessoaFisica getObjectById(Integer id) throws Exception{
-        return em.find(PessoaFisica.class, id);
-    }
-    
-    public EntityManager getEm() {
-        return em;
-    }
-
-    public void setEm(EntityManager em) {
-        this.em = em;
-    }
-
-    public List<PessoaFisica> getListarTodos() {
-        return em.createQuery("from PessoaFisica order by nome").getResultList();
-    }
-
-    public void setListarTodos(List<PessoaFisica> listarTodos) {
-        this.listarTodos = listarTodos;
-    }
-    
-    
-    
-    
 }

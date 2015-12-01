@@ -11,17 +11,60 @@
             Seja Bem-Vindo ao Sistema
         </ui:define>
         <ui:define name="conteudo">
-            <h:form>
+            <h:form id="formListagem">
                 <p:growl/>
-                <p:dataTable value="#{controleVeiculo.dao.listarTodos}" var="obj"
+                <div align="center">
+                    <p:panelGrid columns="1">
+                        <f:facet name="header">  
+                            Filtro Ordenação e Paginação 
+                        </f:facet>                          
+                        <p:column  colspan="13" rowspan="1">                                                        
+                        <h:outputLabel for="ordem" value="Ordem" />     
+                        <h:selectOneMenu id="ordem" 
+                                         value="#{controleVeiculo.dao.currentOrder}"
+                                         converter="#{controleVeiculo.dao.converterOrder}">
+                            <f:selectItems value="#{controleVeiculo.dao.listOrder}" />
+                                <p:ajax update="formListagem" 
+                                        listener="#{controleVeiculo.listar()}"/>
+                        </h:selectOneMenu>                            
+                        <h:outputLabel for="maximoObjetos" value="Máximo de objetos" />
+                        <p:inputText id="maximoObjetos"  
+                                     value="#{controleVeiculo.dao.maxObjects}" size="2"
+                                     onkeydown="Mascara(this, Integer);"
+                                     onkeypress="Mascara(this, Integer);"
+                                     onkeyup="Mascara(this, Integer);">
+                            <p:ajax update="tabela"
+                                    listener="#{controleVeiculo.listar()}" event="keyup"/>                          
+                        </p:inputText>                      
+                        <h:outputLabel for="filtro" value="Filtro" />
+                        <p:inputText id="filtro" placeholder="Digite o filtro"
+                                     value="#{controleVeiculo.dao.filter}" >
+                            <p:ajax update="tabela" 
+                                    listener="#{controleVeiculo.listar()}" event="keyup"/>                            
+                        </p:inputText>
+                        <p:commandButton id="btnFiltrar" update="formListagem" 
+                                         actionListener="#{controleVeiculo.listar()}" icon="ui-icon-search" />  
+                        <p:commandButton id="btnPrimeiro" update="formListagem" 
+                                         actionListener="#{controleVeiculo.dao.first()}" icon="ui-icon-seek-start"/>  
+                        <p:commandButton id="btnAnterior" update="formListagem" 
+                                         actionListener="#{controleVeiculo.dao.previous()}" icon="ui-icon-seek-prev"/>  
+                        <p:commandButton id="btnProximo" update="formListagem" 
+                                         actionListener="#{controleVeiculo.dao.next()}" icon="ui-icon-seek-next"/>  
+                        <p:commandButton id="btnUltimo" update="formListagem" 
+                                         actionListener="#{controleVeiculo.dao.last()}" icon="ui-icon-seek-end" /> 
+                        </p:column>  
+                    </p:panelGrid>                     
+                </div>
+                <p:dataTable value="#{controleVeiculo.dao.listObjects}" var="obj"
                              emptyMessage="Nenhum registro encontrado" 
-                             style="text-align: center">
+                             style="text-align: center"
+                             id="tabela">
                     <f:facet name="header">
                         <p:outputLabel value="Listagem de Veiculos "/>
                         <p:commandButton value="Novo" action="#{controleVeiculo.novo()}" ajax="false"/>
                     </f:facet>    
                     <f:facet name="footer">
-                        <p:outputLabel value="Total de registros: #{controleVeiculo.dao.listarTodos.size()}"/>
+                        <p:outputLabel value="Total de registros: #{controleVeiculo.dao.navigationMessage}"/>
                     </f:facet>
                     <p:column headerText="ID" style="width: 15px;">
                         <p:outputLabel value="#{obj.id}"/>

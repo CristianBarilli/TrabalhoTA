@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Sistema com JSF 2.0</ui:define>
+        <ui:define name="conteudo">
+            <style type="text/css">                                              
+                #centro {
+                    width:200px;
+                    height:200px;
+                    position:absolute;
+                    top:50%;
+                    left:50%;
+                    margin-top:-100px;
+                    margin-left:-100px;
+                }  
+            </style>             
+            <div align="center" id="centro">
+                <h:form  rendered="#{controleLogin.usuarioLogado == null}" >	
+
+                    <p:panel header="Efetuar login" style="width: 300px">
+                        <p:growl id="growlMessage" showDetail="false" />	
+                        <p:focus for="txtUsuario"/>
+                        <p:panelGrid columns="2" >
+                            <h:outputLabel for="txtUsuario" value="Usuário" />
+                            <p:inputText id="txtUsuario" value="#{controleLogin.usuario}" required="true" 
+                                         requiredMessage="Usuário deve ser informado"
+                                         placeholder="Obrigatório"/>   
+                            <h:outputLabel for="txtSenha" value="Senha" />
+                            <p:password id="txtSenha" value="#{controleLogin.senha}" feedback="false"
+                                        required="true" 
+                                        requiredMessage="Senha deve ser informada"
+                                        placeholder="Obrigatório"/>
+                            <f:facet name="footer">  
+                                <div align="center">
+                                    <p:commandButton id="login" action="#{controleLogin.efetuarLogin()}" 
+                                                     value="Login" update="growlMessage" ajax="false"/>
+                                    <br/><br/>                            
+                                </div>
+                            </f:facet>                              
+                        </p:panelGrid>
+                    </p:panel>
+                </h:form>            
+            </div>              
+        </ui:define>
+    </ui:composition>
+</html>

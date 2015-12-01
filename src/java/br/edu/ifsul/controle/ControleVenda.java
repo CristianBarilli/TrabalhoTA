@@ -10,6 +10,7 @@ import br.edu.ifsul.dao.PessoaFisicaDAO;
 import br.edu.ifsul.dao.PessoaJuridicaDAO;
 import br.edu.ifsul.dao.VeiculoDAO;
 import br.edu.ifsul.dao.VendaDAO;
+import br.edu.ifsul.modelo.MeioPagamento;
 import br.edu.ifsul.modelo.Pessoa;
 import br.edu.ifsul.modelo.PessoaFisica;
 import br.edu.ifsul.modelo.PessoaJuridica;
@@ -30,16 +31,16 @@ import javax.faces.bean.SessionScoped;
 public class ControleVenda implements Serializable{
     
     @EJB
-    private VendaDAO dao;
+    private VendaDAO<Venda> dao;
     private Venda objeto;
     @EJB
-    private VeiculoDAO daoVeiculo;
+    private VeiculoDAO<Veiculo> daoVeiculo;
     @EJB
-    private MeioPagamentoDAO daoMeioPagamento;
+    private MeioPagamentoDAO<MeioPagamento> daoMeioPagamento;
     @EJB
-    private PessoaFisicaDAO daoPessoaFisica;
+    private PessoaFisicaDAO<PessoaFisica> daoPessoaFisica;
     @EJB
-    private PessoaJuridicaDAO daoPessoaJuridica;
+    private PessoaJuridicaDAO<PessoaJuridica> daoPessoaJuridica;
     private Veiculo veiculo;
 
     public ControleVenda() {
@@ -77,7 +78,7 @@ public class ControleVenda implements Serializable{
     
     public String editar(Integer id){
         try{
-            objeto = dao.getObjectById(id);
+            objeto = (Venda) dao.getObjectById(id);
             return "formulario";
         }catch(Exception e) {
             Util.mensagemInformacao("Erro ao recuperar o objeto: " + e.getMessage());
@@ -87,7 +88,7 @@ public class ControleVenda implements Serializable{
     
     public void excluir(Integer id){
         try{
-            objeto = dao.getObjectById(id);
+            objeto = (Venda) dao.getObjectById(id);
             for (Veiculo v : objeto.getVeiculos()) {
                 v.setVendido(false);
                 daoVeiculo.merge(v);
@@ -120,7 +121,7 @@ public class ControleVenda implements Serializable{
     }
     
     public void removerVeiculo(int index) throws Exception{
-        veiculo = daoVeiculo.getObjectById(objeto.getVeiculos().get(index).getId());
+        veiculo = (Veiculo) daoVeiculo.getObjectById(objeto.getVeiculos().get(index).getId());
         veiculo.setVendido(false);
         daoVeiculo.merge(veiculo);
         Double valor = veiculo.getPreco();

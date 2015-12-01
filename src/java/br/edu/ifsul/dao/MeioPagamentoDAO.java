@@ -31,7 +31,4 @@ public class MeioPagamentoDAO<T> extends GenericDAO<MeioPagamento> implements Se
         super.setConverterOrder(new ConverterOrder(super.getListOrder()));
         
     }
-    public T getObjectById(Integer id) throws Exception{
-        return (T) em.find(persistentClass, id);
-    }
 }

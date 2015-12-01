@@ -56,7 +56,7 @@ public class GenericDAO<T> implements Serializable {
      * @param id - Identificados do objeto Long
      * @return Objeto do banco
      */
-    private T getObjectById(Integer id) throws Exception{
+    public T getObjectById(Integer id) throws Exception{
             return (T) em.find(persistentClass, id);
     }
     

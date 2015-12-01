@@ -27,7 +27,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "pessoa")
-public class Pessoa implements Serializable{
+public abstract class Pessoa implements Serializable{
     @Id
     @SequenceGenerator(name = "seq_pessoa", sequenceName = "seq_pessoa_id", allocationSize = 1)
     @GeneratedValue(generator = "seq_pessoa", strategy = GenerationType.SEQUENCE)

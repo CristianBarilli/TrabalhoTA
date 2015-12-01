@@ -25,7 +25,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -42,7 +41,7 @@ public class Venda implements Serializable{
     
     @NotNull(message = "A data da venda deve ser informada")
     @Temporal(TemporalType.DATE)
-    @Column(name = "nascimento", nullable = false)
+    @Column(name = "data_venda", nullable = false)
     private Calendar data;
     
     @NotNull(message = "O valor deve ser informado")

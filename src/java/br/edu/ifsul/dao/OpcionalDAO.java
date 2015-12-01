@@ -31,11 +31,10 @@ public class OpcionalDAO<T> extends GenericDAO<Opcional> implements Serializable
         super.setConverterOrder(new ConverterOrder(super.getListOrder()));
 
     }
-    
-    public T getObjectById(Integer id) throws Exception{
-        Opcional obj =  (Opcional) em.find(persistentClass, id);
+    @Override
+    public Opcional getObjectById(Integer id) throws Exception{
+        Opcional obj =  super.getEm().find(Opcional.class, id);
         obj.getVeiculos().size();
-        T t = (T) obj;
-        return t;
+        return obj;
     }
 }

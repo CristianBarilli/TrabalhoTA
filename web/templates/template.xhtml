@@ -16,7 +16,8 @@
             <p:layoutUnit position="west" header="Menu" resizable="true" closable="true" collapsible="true" size="170">
                 <h:form id="formMenu" prependId="false">
                     <p:menu>
-                        <p:submenu label="Cadastros">
+
+                        <p:submenu label="Cadastros" rendered="#{controleLogin.usuarioLogado != null}">
                             <p:menuitem action="#{controlePessoaFisica.listar()}" value="Pessoa Física" ajax="false"/>
                             <p:menuitem action="#{controlePessoaJuridica.listar()}" value="Pessoa Jurídica" ajax="false"/>
                             <p:menuitem action="#{controleMontadora.listar()}" value="Montadoras" ajax="false"/>
@@ -26,17 +27,28 @@
                             <p:menuitem action="#{controleMeioPagamento.listar()}" value="Meios de Pagamento" ajax="false"/>
                             <p:menuitem action="#{controleVenda.listar()}" value="Vendas" ajax="false"/>
                         </p:submenu>
+
+                        <p:submenu label="Logout" rendered="#{controleLogin.usuarioLogado != null}">
+                            <p:menuitem value="Sair" action="#{controleLogin.efetuarLogout()}"
+                                        ajax="false"/>                          
+                        </p:submenu>
+
+                        <p:submenu label="Login" rendered="#{controleLogin.usuarioLogado == null}">
+                            <p:menuitem value="Login" action="#{controleLogin.paginaLogin()}"
+                                        ajax="false"/> 
+
+                        </p:submenu>    
                     </p:menu>
                 </h:form>
             </p:layoutUnit>
             <p:layoutUnit position="center">
                 <ui:insert name="conteudo">
-                    
+
                 </ui:insert>
-                
+
             </p:layoutUnit>
             <ui:insert name="dialogos">
-                
+
             </ui:insert>
             <p:layoutUnit position="south">
                 <ui:include src="/templates/ajaxstatus.xhtml"/>

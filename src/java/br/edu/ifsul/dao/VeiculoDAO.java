@@ -7,62 +7,34 @@ package br.edu.ifsul.dao;
 
 import br.edu.ifsul.modelo.Veiculo;
 import java.io.Serializable;
-import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.ejb.Stateful;
 
 /**
  *
  * @author Devel
  */
-@Stateless
-public class VeiculoDAO implements Serializable{
+@Stateful
+public class VeiculoDAO<T> extends GenericDAO<Veiculo> implements Serializable {
     
-    @PersistenceContext(unitName = "TA-2015-Trabalho-E2PU")
-    private EntityManager em;
-    private List<Veiculo> listarTodos;
+    public VeiculoDAO(){
+        super();
+        //definir a classe persistente
+        super.setPersistentClass(Veiculo.class);
+        //definir a lista de ordenações
+        super.getListOrder().add(new Order("id", "ID", "="));
+        super.getListOrder().add(new Order("nome", "Nome", "like"));
+        //definir a ordem atual
+        super.setCurrentOrder(super.getListOrder().get(1));
+        //inicializar o filtro
+        super.setFilter("");
+        //inicializar o conversor
+        super.setConverterOrder(new ConverterOrder(super.getListOrder()));
 
-    public VeiculoDAO() {
     }
-    
-    public void persist(Veiculo objeto) throws Exception{
-        em.persist(objeto);
-    }
-    
-    public void merge(Veiculo objeto) throws Exception{
-        em.merge(objeto);
-    }
-    
-    public void remove(Veiculo objeto) throws Exception{
-        objeto = em.merge(objeto);
-        em.remove(objeto);
-    }
-    
+    @Override
     public Veiculo getObjectById(Integer id) throws Exception{
-        Veiculo obj = em.find(Veiculo.class, id);
+        Veiculo obj =  super.getEm().find(Veiculo.class, id);
         obj.getOpcionais().size();
         return obj;
-        
     }
-    
-    public EntityManager getEm() {
-        return em;
-    }
-
-    public void setEm(EntityManager em) {
-        this.em = em;
-    }
-
-    public List<Veiculo> getListarTodos() {
-        return em.createQuery("from Veiculo order by nome").getResultList();
-    }
-
-    public void setListarTodos(List<Veiculo> listarTodos) {
-        this.listarTodos = listarTodos;
-    }
-    
-    
-    
-    
 }

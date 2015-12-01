@@ -3,9 +3,18 @@
   <persistence-unit name="TA-2015-Trabalho-E2PU" transaction-type="JTA">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>jndi-revendabarilli</jta-data-source>
-    <class>br.edu.ifsul.edu.modelo.Montadora</class>
-    <class>br.edu.ifsul.edu.modelo.Tipo</class>
-    <class>br.edu.ifsul.edu.modelo.Veiculo</class>
+    <class>br.edu.ifsul.modelo.AcessoUsuario</class>
+    <class>br.edu.ifsul.modelo.MeioPagamento</class>
+    <class>br.edu.ifsul.modelo.Montadora</class>
+    <class>br.edu.ifsul.modelo.Opcional</class>
+    <class>br.edu.ifsul.modelo.Pessoa</class>
+    <class>br.edu.ifsul.modelo.PessoaFisica</class>
+    <class>br.edu.ifsul.modelo.PessoaJuridica</class>
+    <class>br.edu.ifsul.modelo.Tipo</class>
+    <class>br.edu.ifsul.modelo.Usuario</class>
+    <class>br.edu.ifsul.modelo.Veiculo</class>
+    <class>br.edu.ifsul.modelo.Venda</class>
+    
     <properties>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
@@ -13,12 +22,11 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/revendaBarilli"/>
       <property name="javax.persistence.jdbc.password" value="acesso21"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="javax.persistence.jdbc.user" value="postgres"/>  
-      
+      <property name="javax.persistence.jdbc.user" value="postgres"/>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
       <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
-      <property name="hibernate.classloading.use_current_tccl_as_parent" value="false"/> 
+      <property name="hibernate.classloading.use_current_tccl_as_parent" value="false"/>
     </properties>
   </persistence-unit>
 </persistence>
